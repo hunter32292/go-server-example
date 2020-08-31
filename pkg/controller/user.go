@@ -1,12 +1,15 @@
 package controller
 
 import (
+	"bytes"
+	"encoding/csv"
 	"encoding/json"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
 
+	"github.com/hunter32292/warmups/pkg/dao"
 	"github.com/hunter32292/warmups/pkg/models"
 )
 
@@ -15,10 +18,47 @@ var UserData []*models.User
 
 // SetupUserHandler - setup all the controller paths for Users
 func SetupUserHandler(handler *http.ServeMux) {
+	handler.HandleFunc("/user", Show)
 	handler.HandleFunc("/user/create", Create)
 	handler.HandleFunc("/user/update", Update)
 	handler.HandleFunc("/user/replace", Replace)
 	handler.HandleFunc("/user/delete", Delete)
+
+	LoadData()
+}
+
+//LoadData - Setup Data For Users
+func LoadData() {
+	data, err := dao.FileLoadInData("data/MOCK_DATA.csv")
+	if err != nil {
+		log.Fatal(err)
+	}
+	reader := csv.NewReader(bytes.NewReader(data))
+	records, err := reader.ReadAll()
+	if err != nil {
+		log.Fatal(err)
+	}
+	for index, item := range records {
+		UserData = append(UserData, &models.User{Id: index, First_name: item[1], Last_name: item[2], Email: item[3]})
+	}
+}
+
+// Show - a User
+func Show(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("["))
+	for index, data := range UserData {
+		payload, err := json.Marshal(data)
+		if err != nil {
+			log.Fatal(err)
+		}
+		w.Write(payload)
+		if index != 1000 {
+			w.Write([]byte(","))
+		}
+	}
+	w.Write([]byte("]"))
 }
 
 // Create - a New User
