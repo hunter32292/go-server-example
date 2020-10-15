@@ -39,6 +39,9 @@ func LoadData() {
 		log.Fatal(err)
 	}
 	for index, item := range records {
+		if index == 0 {
+			continue
+		}
 		UserData = append(UserData, &models.User{Id: index, First_name: item[1], Last_name: item[2], Email: item[3]})
 	}
 }
@@ -54,7 +57,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 			log.Fatal(err)
 		}
 		w.Write(payload)
-		if index != 1000 {
+		if index != len(UserData)-1 {
 			w.Write([]byte(","))
 		}
 	}

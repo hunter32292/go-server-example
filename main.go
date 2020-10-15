@@ -71,6 +71,7 @@ func run(s *http.Server) {
 
 func setupControllers(mux *http.ServeMux) {
 	controller.SetupUserHandler(mux)
+	mux.HandleFunc("/", controller.HomeHandler)
 	mux.HandleFunc("/404", controller.NotFound)
 	// Add more like so:
 	// controller.SetupNAMEHandler(mux)

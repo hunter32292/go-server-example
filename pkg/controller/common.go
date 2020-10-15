@@ -25,3 +25,12 @@ func NotFound(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
 	w.Write(bytes)
 }
+
+// HomeHandler - Home page redirect view and 404 handle
+func HomeHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		NotFound(w, r)
+		return
+	}
+	fmt.Fprint(w, "<a href=\"/user\">users</>")
+}
