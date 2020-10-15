@@ -9,8 +9,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/hunter32292/warmups/pkg/dao"
-	"github.com/hunter32292/warmups/pkg/models"
+	"github.com/hunter32292/go-server-example/pkg/dao"
+	"github.com/hunter32292/go-server-example/pkg/models"
 )
 
 // UserData - The collection of Users retained in memory as a slice of structs
@@ -48,6 +48,7 @@ func LoadData() {
 
 // Show - a User
 func Show(w http.ResponseWriter, r *http.Request) {
+	log.Println("Show User Data")
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("["))
@@ -66,6 +67,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 
 // Create - a New User
 func Create(w http.ResponseWriter, r *http.Request) {
+	log.Println("Create User Data")
 	newUser := &models.User{}
 	io.WriteString(w, "Create a New User")
 	bytes, err := json.Marshal(newUser)
@@ -79,15 +81,18 @@ func Create(w http.ResponseWriter, r *http.Request) {
 
 // Update - a User
 func Update(w http.ResponseWriter, r *http.Request) {
+	log.Println("Update User Data")
 	io.WriteString(w, "Update a User")
 }
 
 // Replace - a current User
 func Replace(w http.ResponseWriter, r *http.Request) {
+	log.Println("Replace User Data")
 	io.WriteString(w, "Replace a current User")
 }
 
 // Delete - a User
 func Delete(w http.ResponseWriter, r *http.Request) {
+	log.Println("Delete User Data")
 	io.WriteString(w, "Delete a User")
 }

@@ -8,11 +8,13 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hunter32292/warmups/pkg/controller"
+	"github.com/hunter32292/go-server-example/pkg/controller"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 // Create Instance Vars
 var (
+	name = "example-server"
 	// Wait group for main go routines
 	waitgroup = sync.WaitGroup{}
 	host      = "localhost"
@@ -24,6 +26,17 @@ var (
 )
 
 func main() {
+
+	if len(os.Getenv("LOG_FILE")) > 0 {
+		file, err := os.OpenFile(os.Getenv("LOG_FILE")+".log", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		defer file.Close()
+
+		log.SetOutput(file)
+	}
 	log.Println("Starting ...")
 
 	mux := http.NewServeMux() // Create Main Handler
@@ -71,6 +84,7 @@ func run(s *http.Server) {
 
 func setupControllers(mux *http.ServeMux) {
 	controller.SetupUserHandler(mux)
+	mux.Handle("/metrics", promhttp.Handler())
 	mux.HandleFunc("/", controller.HomeHandler)
 	mux.HandleFunc("/404", controller.NotFound)
 	// Add more like so:
