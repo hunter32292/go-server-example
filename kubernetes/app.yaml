@@ -1,0 +1,36 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: go-server-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: go-server
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-server-example
+  labels:
+    app: go-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: go-server
+  template:
+    metadata:
+      labels:
+        app: go-server
+    spec:
+      containers:
+      - name: go-server
+        image: go-server-example:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080

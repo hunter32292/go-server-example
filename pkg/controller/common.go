@@ -3,13 +3,14 @@ package controller
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 )
 
 // NotFound - 404 Handler
 func NotFound(w http.ResponseWriter, r *http.Request) {
-
+	log.Println("Serve Not Found")
 	file, err := os.Open("pages/404.html")
 	defer file.Close()
 	if err != nil {
@@ -32,5 +33,19 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		NotFound(w, r)
 		return
 	}
-	fmt.Fprint(w, "<a href=\"/user\">users</>")
+	log.Println("Serve Home Page")
+	file, err := os.Open("pages/index.html")
+	defer file.Close()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(fmt.Sprintf("Server Errror: %s", err)))
+	}
+
+	bytes, err := ioutil.ReadAll(file)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(fmt.Sprintf("Server Errror: %s", err)))
+	}
+	w.WriteHeader(http.StatusOK)
+	w.Write(bytes)
 }

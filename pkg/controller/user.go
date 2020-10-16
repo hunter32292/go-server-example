@@ -18,7 +18,7 @@ var UserData []*models.User
 
 // SetupUserHandler - setup all the controller paths for Users
 func SetupUserHandler(handler *http.ServeMux) {
-	handler.HandleFunc("/user", Show)
+	handler.HandleFunc("/users", Show)
 	handler.HandleFunc("/user/create", Create)
 	handler.HandleFunc("/user/update", Update)
 	handler.HandleFunc("/user/replace", Replace)
@@ -29,6 +29,7 @@ func SetupUserHandler(handler *http.ServeMux) {
 
 //LoadData - Setup Data For Users
 func LoadData() {
+	log.Println("Load Data into Memory")
 	data, err := dao.FileLoadInData("data/MOCK_DATA.csv")
 	if err != nil {
 		log.Fatal(err)
