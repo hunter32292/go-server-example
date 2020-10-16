@@ -6,7 +6,7 @@ This is an example project to show how to setup a simple go server that produces
 ## Recent Additions
 
 - Added Metrics Exposure and scrapping via prometheus server
-- Added Logging via file and injection pipeline with Filebeat, Elastic, and Kibana
+- Added Logging via file and injection pipeline with FileBeat, Elastic, and Kibana
 - Added Routing on 404 and home redirect
 - Added CRUD actions for mock user data
 
