@@ -1,8 +1,8 @@
 GIT_HASH = $(shell git describe --tags --dirty --always)
 
-.PHONY: all run lint test build clean gen-cert
+.PHONY: all run lint fmt test build clean gen-cert
 
-all: clean lint test build run
+all: clean lint fmt test build run
 
 run: 
 	./bin/server
@@ -10,13 +10,16 @@ run:
 run-tls: gen-cert 
 	./bin/server
 	
-test: lint unit
+test: lint fmt unit
 
 unit: 
 	go test ./... -coverprofile cover.out
 	
 lint:
 	go vet ./...
+
+fmt:
+	go fmt ./...
 
 build: test
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GO111MODULE=on GOSUMDB=off go build -o bin/server main.go
