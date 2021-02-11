@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/hunter32292/go-server-example/pkg/controller"
+	trace "github.com/hunter32292/go-server-example/pkg/tracer"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
@@ -38,6 +39,10 @@ func main() {
 		log.SetOutput(file)
 	}
 	log.Println("Starting ...")
+
+	trace.NewTraceConfig(name)
+	trace.CreateGlobalTracer()
+	log.Println("Global tracer created...")
 
 	mux := http.NewServeMux() // Create Main Handler
 	setupControllers(mux)     // Setup all controllers for server
