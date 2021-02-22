@@ -1,5 +1,6 @@
-[![Build Status](https://travis-ci.org/hunter32292/go-server-example.svg?branch=master)](https://travis-ci.org/hunter32292/go-server-example)
 # Go Server Example
+[![Build Status](https://github.com/hunter32292/go-server-example/actions/workflows/build-status.yml/badge.svg)](https://github.com/hunter32292/go-server-example/actions/workflows/build-status.yml)
+[![Man Hours](https://img.shields.io/endpoint?url=https%3A%2F%2Fmh.jessemillar.com%2Fhours%3Frepo%3Dhttps%3A%2F%2Fgithub.com%2Fhunter32292%2Fgo-server-example.git)](https://jessemillar.com/r/man-hours)
 
 This is an example project to show how to setup a simple go server that produces either a webpage or an API endpoint of data. Currently data is generated with [mockaroo](https://www.mockaroo.com/) and that data is stored in a CSV file under [data](./data), this information is stored in a slice for quick access of in memory data.
 
