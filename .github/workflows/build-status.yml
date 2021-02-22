@@ -1,4 +1,4 @@
-name: Verify Build
+name: build status
 
 on: [push, pull_request]
 
