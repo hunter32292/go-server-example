@@ -38,18 +38,20 @@ func cleanupServer() error {
 	return nil
 }
 
-// Integration Test Example
-func TestRequestingUserData(t *testing.T) {
+func TestMain(m *testing.M) {
+	os.Exit(testmain(m))
+}
+
+func testmain(m *testing.M) int {
 	Server = cmd.GetServer()
 	setupServer()
 
-	t.Cleanup(func() {
-		fmt.Println("Cleaning up integration test...")
-		err := cleanupServer()
-		if err != nil {
-			fmt.Println(err)
-		}
-	})
+	defer cleanupServer()
+	return m.Run()
+}
+
+// Integration Test Example
+func TestRequestingUserData(t *testing.T) {
 
 	url := "http://localhost:8080/users"
 	method := "GET"
