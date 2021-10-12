@@ -6,12 +6,14 @@ This is an example project to show how to setup a simple go server that produces
 
 ## Recent Additions
 
-- Added Metrics Exposure and scrapping via prometheus server
-- Added Logging via file and injection pipeline with FileBeat, Elastic, and Kibana
-- Added Tracing with jaeger and opentracing
-- Added Kubernetes deployment example
-- Added Routing on 404 and home redirect
-- Added CRUD actions for mock user data
+-  Metrics Exposure and scrapping via prometheus server
+-  Logging via file and injection pipeline with FileBeat, Elastic, and Kibana
+-  Tracing with jaeger and opentracing
+-  Kubernetes deployment example
+-  Routing on 404 and home redirect
+-  CRUD actions for mock user data
+-  Streamline Main Server and Router setup
+-  Add config file based startup sequence
 
 ### Tech
 
@@ -41,8 +43,7 @@ $ docker run -e LOG_FILE=service-name --rm -d -p 8080:8080 IMAGE_TAG
 ### Todos
 
  - Add End to End testing Example
- - Streamline Main Server and Router setup
- - Add config file based startup sequence
+ - Add database based DAO interface
 
 
 License
