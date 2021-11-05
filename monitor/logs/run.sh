@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 echo "Running docker version of Elastic Logbeat Kibana (ELK) ..."
 echo "Cleanup for elastic..."
 docker kill elastic

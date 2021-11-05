@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 echo "Running docker version of prometheus sharing host network..."
 
 docker run \
