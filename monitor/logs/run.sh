@@ -41,4 +41,4 @@ docker run \
     --volume="$(pwd)/../..:/example-server" \
     docker.elastic.co/beats/filebeat:7.9.2 
 
-echo "To access kibana goto localhost:5601"
+echo "To access kibana goto http://localhost:5601"
